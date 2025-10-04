@@ -1,0 +1,27 @@
+{
+  "name": "testing-cicd-workshop",
+  "version": "1.0.0",
+  "description": "CI/CD Pipeline Exercise for Testing Team",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "jest",
+    "test:unit": "jest tests/unit.test.js",
+    "test:integration": "jest tests/integration.test.js",
+    "test:coverage": "jest --coverage"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "*.js",
+      "!node_modules/**"
+    ]
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^6.3.4"
+  }
+}
