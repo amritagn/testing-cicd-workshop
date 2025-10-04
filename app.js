@@ -21,7 +21,7 @@ app.post('/calculate', (req, res) => {
     const { operation, a, b } = req.body;
    
     if (!operation || a === undefined || b === undefined) {
-        return res.status(400).json({ error: 'Missing required parameters' });
+        return res.status(400).json({ error: 'Missing requirement parameters' });
     }
    
     let result;
