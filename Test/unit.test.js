@@ -1,40 +1,57 @@
-// const { calculator,server } = require('../app');
-const { calculator,server } = require('../app');
+const express = require('express');
+const app = express();
+const port = process.env.PORT || 3000;
  
-afterAll((done) => {
-    server.close(done); // closes the server so Jest can exit
+app.use(express.json());
+ 
+// Simple calculator functions
+const calculator = {
+    add: (a, b) => a + b,
+    subtract: (a, b) => a - b,
+    multiply: (a, b) => a * b,
+    divide: (a, b) => b !== 0 ? a / b : null
+};
+ 
+// Routes
+app.get('/', (req, res) => {
+    res.json({ message: 'Calculator API is running!' });
 });
-
-describe('Calculator Unit Tests', () => {
-    describe('Addition', () => {
-        test('should add two positive numbers', () => {
-            expect(calculator.add(2, 3)).toBe(5);
-        });
-        
-        test('should add negative numbers', () => {
-            expect(calculator.add(-2, -3)).toBe(-5);
-        });
-    });
-    
-    describe('Subtraction', () => {
-        test('should subtract two numbers', () => {
-            expect(calculator.subtract(5, 3)).toBe(2);
-        });
-    });
-    
-    describe('Multiplication', () => {
-        test('should multiply two numbers', () => {
-            expect(calculator.multiply(3, 4)).toBe(12);
-        });
-    });
-    
-    describe('Division', () => {
-        test('should divide two numbers', () => {
-            expect(calculator.divide(10, 2)).toBe(5);
-        });
-        
-        test('should return null for division by zero', () => {
-            expect(calculator.divide(10, 0)).toBe(null);
-        });
-    });
+ 
+app.post('/calculate', (req, res) => {
+    const { operation, a, b } = req.body;
+   
+    if (!operation || a === undefined || b === undefined) {
+        return res.status(400).json({ error: 'Missing required parameters' });
+    }
+   
+    let result;
+    switch (operation) {
+        case 'add':
+            result = calculator.add(a, b);
+            break;
+        case 'subtract':
+            result = calculator.subtract(a, b);
+            break;
+        case 'multiply':
+            result = calculator.multiply(a, b);
+            break;
+        case 'divide':
+            result = calculator.divide(a, b);
+            if (result === null) {
+                return res.status(400).json({ error: 'Division by zero' });
+            }
+            break;
+        default:
+            return res.status(400).json({ error: 'Invalid operation' });
+    }
+   
+    res.json({ result });
 });
+ 
+const server = app.listen(port, () => {
+    console.log(`Calculator API listening at http://localhost:${port}`);
+});
+ 
+module.exports = { app, server, calculator };
+ 
+ 
