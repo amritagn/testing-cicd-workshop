@@ -14,7 +14,7 @@ const calculator = {
  
 // Routes
 app.get('/', (req, res) => {
-    res.json({ message: 'Calculator API is now running!' });
+    res.json({ message: 'Calculator API is running!' });
 });
  
 app.post('/calculate', (req, res) => {
