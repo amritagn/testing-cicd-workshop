@@ -19,22 +19,33 @@
     ],
     "reporters": [
       "default",
-      ["jest-html-reporter",{
-        "pageTitle": "Calculator API Test Report",
-        "outputPath":"test-report.html"
-      }],
-      ["jest-junit",{
-        "outputDirectory": "test-results",
-        "outputName": "junit.xml"
-      }]
+      [
+        "jest-html-reporter",
+        {
+          "pageTitle": "Calculator API Test Report",
+          "outputPath": "test-report.html"
+        }
+      ],
+      [
+        "jest-junit",
+        {
+          "outputDirectory": "test-results",
+          "outputName": "junit.xml"
+        }
+      ]
     ],
-    "coverageReporters": ["text","lcov","html"]
+    "coverageReporters": [
+      "text",
+      "lcov",
+      "html"
+    ]
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "eslint-plugin-prettier": "^5.5.4",
     "express": "^5.1.0"
   },
   "devDependencies": {
@@ -44,5 +55,3 @@
     "supertest": "^7.1.4"
   }
 }
- 
- 
